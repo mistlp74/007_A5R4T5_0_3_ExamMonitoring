@@ -83,6 +83,21 @@ def on_join(data):
     name = data['name']
     join_room(f"{session_code}:{name}")
 
+@socketio.on('video_frame')
+def handle_video_frame(data):
+    session_code = data['session_code']
+    sender = data['sender']
+    frame = data['frame']
+
+    # Ретранслюємо лише вчителям з цієї сесії
+    for p in sessions[session_code]['participants']:
+        if p['role'] == 'teacher' and p['name'] != sender:
+            room = f"{session_code}:{p['name']}"
+            socketio.emit('receive_frame', {
+                'sender': sender,
+                'frame': frame
+            }, room=room)
+
 
 # Обробка надсилання повідомлення
 @socketio.on('send_message')
@@ -100,4 +115,4 @@ def handle_send_message(data):
 
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    socketio.run(app, host='0.0.0.0', port=5000)
