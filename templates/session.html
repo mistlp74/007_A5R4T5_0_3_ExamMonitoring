@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Сесія {{ session_code }}</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        #messages { border: 1px solid #ccc; height: 300px; overflow-y: scroll; padding: 10px; margin-bottom: 10px; }
+        #chat-form { display: flex; gap: 10px; }
+        select, input, button { padding: 5px; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <h2>Сесія: {{ session_code }}</h2>
+    <p>Ви увійшли як <strong>{{ role }}</strong>: {{ name }}</p>
+
+    <div id="messages"></div>
+
+    <form id="chat-form" onsubmit="sendMessage(); return false;">
+        <select id="recipient">
+            {% for p in participants %}
+                {% if role == 'teacher' or (role == 'student' and p.role == 'teacher') %}
+                    {% if p.name != name %}
+                        <option value="{{ p.name }}">{{ p.name }} ({{ p.role }})</option>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </select>
+        <input type="text" id="message" placeholder="Ваше повідомлення" required>
+        <button type="submit">Надіслати</button>
+    </form>
+
+    <script>
+        const socket = io();
+        const name = "{{ name }}";
+        const sessionCode = "{{ session_code }}";
+
+        // Підключення до особистої кімнати
+        socket.emit('join', {
+            session_code: sessionCode,
+            name: name
+        });
+
+        // Надсилання повідомлення
+        function sendMessage() {
+            const recipient = document.getElementById('recipient').value;
+            const message = document.getElementById('message').value;
+
+            socket.emit('send_message', {
+                session_code: sessionCode,
+                sender: name,
+                recipient: recipient,
+                message: message
+            });
+
+            addMessage(`(Ви до ${recipient}): ${message}`);
+            document.getElementById('message').value = '';
+        }
+
+        // Отримання повідомлень
+        socket.on('receive_message', function(data) {
+            addMessage(`${data.sender}: ${data.message}`);
+        });
+
+        // Додавання повідомлення в чат
+        function addMessage(text) {
+            const container = document.getElementById('messages');
+            const p = document.createElement('p');
+            p.textContent = text;
+            container.appendChild(p);
+            container.scrollTop = container.scrollHeight;
+        }
+    </script>
+</body>
+</html>

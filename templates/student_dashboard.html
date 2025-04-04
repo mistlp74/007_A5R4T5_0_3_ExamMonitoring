@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Учень - {{ name }}</title>
+</head>
+<body>
+    <h1>Ласкаво просимо, {{ name }}!</h1>
+    <h2>Щоб приєднатися до сесії, введіть код:</h2>
+    <form action="/join_session" method="post">
+    <input type="hidden" name="name" value="{{ name }}">
+    <input type="text" name="session_code" placeholder="Код сесії" required>
+    <button type="submit">Приєднатися до сесії</button>
+    </form>
+</body>
+</html>

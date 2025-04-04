@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Екзамен Система</title>
+</head>
+<body>
+    <h1>Вибір ролі</h1>
+    <form action="/choose_role" method="post">
+        <label for="role">Виберіть роль:</label>
+        <select name="role" id="role" required>
+            <option value="teacher">Вчитель</option>
+            <option value="student">Учень</option>
+        </select>
+        <input type="text" name="name" placeholder="Ваше ім'я" required>
+        <button type="submit">Підтвердити</button>
+    </form>
+</body>
+</html>
+
