@@ -33,13 +33,11 @@
         <button type="submit">Надіслати</button>
     </form>
 
-    <!-- Відео студента -->
     {% if role == 'student' %}
         <video id="video" autoplay muted playsinline style="border: 2px solid #ccc; width: 240px; margin-bottom: 10px;"></video>
         <canvas id="canvas" style="display:none;"></canvas>
     {% endif %}
 
-    <!-- Відео всіх учасників у вчителя -->
     <div id="videos"></div>
 
     <script>
@@ -48,7 +46,7 @@
         const role = "{{ role }}";
         const sessionCode = "{{ session_code }}";
 
-        socket.emit('join', { session_code: sessionCode, name: name });
+        socket.emit('join', { name, session_code: sessionCode });
 
         function sendMessage() {
             const recipient = document.getElementById('recipient').value;
@@ -59,23 +57,16 @@
                 recipient: recipient,
                 message: message
             });
-            addMessage(`(Ви до ${recipient}): ${message}`);
             document.getElementById('message').value = '';
         }
 
         socket.on('receive_message', function(data) {
-            addMessage(`${data.sender}: ${data.message}`);
-        });
-
-        function addMessage(text) {
             const container = document.getElementById('messages');
             const p = document.createElement('p');
-            p.textContent = text;
+            p.textContent = `${data.sender}: ${data.message}`;
             container.appendChild(p);
-            container.scrollTop = container.scrollHeight;
-        }
+        });
 
-        // 📸 STUDENT: capture and send frames
         if (role === 'student') {
             const video = document.getElementById('video');
             const canvas = document.getElementById('canvas');
@@ -84,34 +75,30 @@
             navigator.mediaDevices.getUserMedia({ video: true })
                 .then(stream => {
                     video.srcObject = stream;
-
                     video.onloadedmetadata = () => {
                         video.play();
-
                         setInterval(() => {
                             if (video.videoWidth && video.videoHeight) {
                                 canvas.width = video.videoWidth;
                                 canvas.height = video.videoHeight;
                                 ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                                const imageData = canvas.toDataURL('image/jpeg', 0.4);
-
+                                const imageData = canvas.toDataURL('image/jpeg', 0.5);
                                 socket.emit('video_frame', {
                                     session_code: sessionCode,
                                     sender: name,
                                     frame: imageData
                                 });
                             }
-                        }, 1000); // кожну секунду
+                        }, 100);
                     };
                 })
                 .catch(err => {
-                    console.error("Не вдалося отримати доступ до камери:", err);
+                    console.error("Помилка доступу до камери:", err);
                 });
         }
 
-        // 👀 TEACHER: receive and show student frames
         if (role === 'teacher') {
-            socket.on('receive_frame', data => {
+            socket.on('receive_frame', function(data) {
                 const id = `student-${data.sender}`;
                 let container = document.getElementById(id);
                 if (!container) {
@@ -122,7 +109,7 @@
                     document.getElementById('videos').appendChild(container);
                 }
                 const img = container.querySelector('img');
-                img.src = data.frame; // Прямий доступ до кадрів
+                img.src = data.frame;
             });
         }
     </script>
