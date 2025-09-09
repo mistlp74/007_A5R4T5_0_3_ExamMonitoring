@@ -1,0 +1,51 @@
+2025-09-09 20:12:05 [INFO] Server started
+2025-09-09 20:12:05 [WARNING] Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+2025-09-09 20:12:05 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-09-09 20:12:05 [INFO] [33mPress CTRL+C to quit[0m
+2025-09-09 20:12:09 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:09] "GET / HTTP/1.1" 200 -
+2025-09-09 20:12:09 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:09] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2025-09-09 20:12:10 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:10] "[35m[1mGET /static/Video1_fixed.mp4 HTTP/1.1[0m" 206 -
+2025-09-09 20:12:10 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:10] "[35m[1mGET /static/Video1_fixed.mp4 HTTP/1.1[0m" 206 -
+2025-09-09 20:12:12 [INFO] User's: teacher, name: Artem
+2025-09-09 20:12:12 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:12] "[32mPOST /choose_role HTTP/1.1[0m" 302 -
+2025-09-09 20:12:12 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:12] "GET /teacher_dashboard/Artem HTTP/1.1" 200 -
+2025-09-09 20:12:13 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:13] "[36mGET /static/teacher_dashboard.css HTTP/1.1[0m" 304 -
+2025-09-09 20:12:13 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:13] "[35m[1mGET /static/Video1_fixed.mp4 HTTP/1.1[0m" 206 -
+2025-09-09 20:12:14 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:14] "GET / HTTP/1.1" 200 -
+2025-09-09 20:12:14 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:14] "[36mGET /static/login.css HTTP/1.1[0m" 304 -
+2025-09-09 20:12:15 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:15] "[35m[1mGET /static/Video1_fixed.mp4 HTTP/1.1[0m" 206 -
+2025-09-09 20:12:16 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:16] "[35m[1mGET /static/Video1_fixed.mp4 HTTP/1.1[0m" 206 -
+2025-09-09 20:12:17 [INFO] session created by 259088 teacher Artem
+2025-09-09 20:12:17 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:17] "[32mPOST /create_session HTTP/1.1[0m" 302 -
+2025-09-09 20:12:17 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:17] "GET /session/teacher/Artem/259088 HTTP/1.1" 200 -
+2025-09-09 20:12:17 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:17] "[36mGET /static/session.css HTTP/1.1[0m" 304 -
+2025-09-09 20:12:17 [ERROR] The client is using an unsupported version of the Socket.IO or Engine.IO protocols (further occurrences of this error will be logged with level INFO)
+2025-09-09 20:12:17 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:17] "[31m[1mGET /socket.io/socket.io.js HTTP/1.1[0m" 400 -
+2025-09-09 20:12:18 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:18] "GET /socket.io/?EIO=4&transport=polling&t=PalhRR9 HTTP/1.1" 200 -
+2025-09-09 20:12:18 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:18] "[36mGET /static/images/Untitled1.png HTTP/1.1[0m" 304 -
+2025-09-09 20:12:18 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:18] "POST /socket.io/?EIO=4&transport=polling&t=PalhRW4&sid=8tweOECGrShwCaOgAAAA HTTP/1.1" 200 -
+2025-09-09 20:12:18 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:18] "GET /socket.io/?EIO=4&transport=polling&t=PalhRW5&sid=8tweOECGrShwCaOgAAAA HTTP/1.1" 200 -
+2025-09-09 20:12:18 [INFO] Artem joined session 259088:Artem
+2025-09-09 20:12:18 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:18] "POST /socket.io/?EIO=4&transport=polling&t=PalhRb0.0&sid=8tweOECGrShwCaOgAAAA HTTP/1.1" 200 -
+2025-09-09 20:12:18 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:18] "GET /socket.io/?EIO=4&transport=polling&t=PalhRb0&sid=8tweOECGrShwCaOgAAAA HTTP/1.1" 200 -
+2025-09-09 20:12:22 [INFO] User's: student, name: Bohdanchik
+2025-09-09 20:12:22 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:22] "[32mPOST /choose_role HTTP/1.1[0m" 302 -
+2025-09-09 20:12:22 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:22] "GET /student_dashboard/Bohdanchik HTTP/1.1" 200 -
+2025-09-09 20:12:22 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:22] "[36mGET /static/student_dashboard.css HTTP/1.1[0m" 304 -
+2025-09-09 20:12:23 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:23] "[35m[1mGET /static/Video1_fixed.mp4 HTTP/1.1[0m" 206 -
+2025-09-09 20:12:30 [INFO] Student Bohdanchik joined 259088
+2025-09-09 20:12:30 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:30] "[32mPOST /join_session HTTP/1.1[0m" 302 -
+2025-09-09 20:12:30 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:30] "GET /session/student/Bohdanchik/259088 HTTP/1.1" 200 -
+2025-09-09 20:12:30 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:30] "[36mGET /static/session.css HTTP/1.1[0m" 304 -
+2025-09-09 20:12:30 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:30] "[31m[1mGET /socket.io/socket.io.js HTTP/1.1[0m" 400 -
+2025-09-09 20:12:30 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:30] "GET /socket.io/?EIO=4&transport=polling&t=PalhUZx HTTP/1.1" 200 -
+2025-09-09 20:12:30 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:30] "POST /socket.io/?EIO=4&transport=polling&t=PalhUeO&sid=OF1v0uNj5-ps4uZpAAAC HTTP/1.1" 200 -
+2025-09-09 20:12:31 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:31] "GET /socket.io/?EIO=4&transport=polling&t=PalhUeP&sid=OF1v0uNj5-ps4uZpAAAC HTTP/1.1" 200 -
+2025-09-09 20:12:31 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:31] "[36mGET /static/images/Untitled1.png HTTP/1.1[0m" 304 -
+2025-09-09 20:12:31 [INFO] Bohdanchik joined session 259088:Bohdanchik
+2025-09-09 20:12:31 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:31] "POST /socket.io/?EIO=4&transport=polling&t=PalhUjA.0&sid=OF1v0uNj5-ps4uZpAAAC HTTP/1.1" 200 -
+2025-09-09 20:12:31 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:31] "GET /socket.io/?EIO=4&transport=polling&t=PalhUjA&sid=OF1v0uNj5-ps4uZpAAAC HTTP/1.1" 200 -
+2025-09-09 20:12:31 [WARNING] [VIOLATION] No face detected for Bohdanchik
+2025-09-09 20:12:32 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:32] "GET /socket.io/?EIO=4&transport=websocket&sid=OF1v0uNj5-ps4uZpAAAC HTTP/1.1" 200 -
+2025-09-09 20:12:33 [INFO] 127.0.0.1 - - [09/Sep/2025 20:12:33] "GET /socket.io/?EIO=4&transport=websocket&sid=8tweOECGrShwCaOgAAAA HTTP/1.1" 200 -

@@ -1,0 +1,300 @@
+/* ----------- БАЗОВИЙ СТИЛЬ СТОРІНКИ ----------- */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: rgba(40, 40, 40, 1);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px;
+    gap: 30px;
+    box-sizing: border-box;
+}
+
+#background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background: url('images/Untitled1.png') no-repeat center center;
+    background-size: cover;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* ----------- ІНФОРМАЦІЯ ПРО СЕСІЮ ----------- */
+.session-info {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #ffffff;
+    z-index: 1000;
+}
+
+/* ----------- ГОЛОВНИЙ КОНТЕЙНЕР ----------- */
+.main-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    box-sizing: border-box;
+    padding-top: 80px;
+}
+
+/* ----------- ЧАТ ----------- */
+#chat-wrapper {
+    width: 350px;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    transition: max-height 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(200, 200, 200, 0.5);
+    overflow: hidden;
+    flex-shrink: 0;
+    margin-left: 20px;
+}
+
+body.teacher-view #chat-wrapper {
+    position: absolute;
+    top: 75px;
+    left: 1125px;
+}
+
+body.student-view #chat-wrapper {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    left: auto;
+}
+
+/* Вміст повідомлень */
+#messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    max-height: 400px;
+    color: #ffffff;
+    padding: 15px;
+}
+
+/* Список повідомлень */
+#message-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Окреме повідомлення */
+#message-list li {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: max-height 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 10px;
+    word-wrap: break-word;
+}
+
+/* Форма чату */
+#chat-form {
+    display: flex;
+    gap: 0px;
+    padding: 10px;
+    background-color: #24494F;
+}
+
+#chat-form select {
+    width: 30%;
+    background-color: #237aa7;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#chat-form input {
+    flex-grow: 1;
+    background-color: #0F2437;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#chat-form button {
+    background-color: #237aa7;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+/* ----------- ВІДЕО-КОНТЕЙНЕР (ВЧИТЕЛЬ) ----------- */
+#teacher-videos {
+    min-height: 275px;
+    position: absolute;
+    left: 100px;
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    box-sizing: border-box;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(200, 200, 200, 0.5);
+    gap: 20px;
+    max-height: 200px; /* початкова висота */
+}
+
+/* Коли розгортається */
+#teacher-videos.expanded {
+    max-height: 1000px;
+    min-height: 300px; /* Щоб кнопка завжди вміщалась */
+}
+
+/* ----------- СІТКА ВІДЕО ----------- */
+.video-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+/* ----------- ОКРЕМЕ ВІДЕО ----------- */
+.video-container {
+    width: 180px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    transition: max-height 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 10px;
+    border-radius: 8px;
+    word-wrap: break-word;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.video-container img,
+.video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 5px;
+    border: 2px solid #237aa7;
+}
+
+/* ----------- ОБГОРТКА ДЛЯ КНОПКИ ----------- */
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: auto; /* завжди тримається знизу */
+}
+
+/* ----------- КНОПКА "ДАЛІ" ----------- */
+#load-more-btn {
+    height: 30px;
+    width: 200px;
+    background-color: #237aa7;
+    color: #f8e0f6;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+#load-more-btn:focus,
+#load-more-btn:hover {
+    background-color: #237aa7;
+    border-color: #ffffff;
+    color: #ffffff;
+    box-shadow: 0 0 10px #ffffff;
+    transform: scale(1.05);
+}
+
+/* ----------- ІКОНКА СТРІЛКИ ----------- */
+.arrow-icon {
+    width: 28px;
+    height: 28px;
+    color: #ffffff;
+    position: relative;
+}
+
+
+/* ----------- ВІДЕО-КОНТЕЙНЕР (СТУДЕНТ) ----------- */
+#student-video {
+    position: absolute;
+    top: 40px;
+    left: 275px;
+    z-index: 10;
+}
+
+.hidden-canvas {
+    display: none;
+}
+
+.student-video-container {
+
+    width: 820px;
+    height: 600px;
+    max-width: 1000px;
+    aspect-ratio: 16 / 9;
+    position: relative;
+}
+
+.student-video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+}
+
+
+/* ----------- ВИД ДЛЯ СТУДЕНТА ----------- */
+body.student-view {
+    justify-content: center;
+    align-items: center;
+}
+
+body.student-view #teacher-videos {
+    display: none;
+}
+
+body.student-view #student-video video {
+    width: 90vw;
+    height: 90vh;
+    object-fit: contain;
+    border: 6px solid #45b8ac;
+    border-radius: 20px;
+}

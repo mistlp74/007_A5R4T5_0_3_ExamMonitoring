@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Екзамен Система</title>
+    <title>ExamSystem</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Вибір ролі</h1>
+    <div class="video-container">
+        <video autoplay muted loop id="bg-video">
+            <source src="{{ url_for('static', filename='Video1_fixed.mp4') }}" type="video/mp4">
+        </video>
+    </div>
+
+
     <form action="/choose_role" method="post">
-        <label for="role">Виберіть роль:</label>
         <select name="role" id="role" required>
-            <option value="teacher">Вчитель</option>
-            <option value="student">Учень</option>
+            <option value="teacher">Teacher</option>
+            <option value="student">Student</option>
         </select>
-        <input type="text" name="name" placeholder="Ваше ім'я" required>
-        <button type="submit">Підтвердити</button>
+        <input type="text" name="name" placeholder="Your Name" required>
+        <button type="submit">Confirm</button>
     </form>
 </body>
 </html>
-

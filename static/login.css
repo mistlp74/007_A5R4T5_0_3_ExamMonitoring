@@ -1,0 +1,136 @@
+/* Скидання і базова настройка */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+/* Відео на фоні */
+.video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+}
+
+#bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Центрована форма */
+form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(200, 200, 200, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+select{
+    position: absolute;
+    top: 70px;
+    height: 14%;
+    width: 75%;
+    background-color: rgb(60, 60, 60);
+    color: #ffffff;
+    border: 1px solid white;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+    box-shadow: 0 0 2px white;
+    transition: all 0.3s ease;
+}
+
+input {
+    position: absolute;
+    top: 120px;
+    height: 14%;
+    width: 75%;
+    background-color: rgb(60, 60, 60);
+    color: #ffffff;
+    border: 1px solid white;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+    box-shadow: 0 0 2px white;
+    transition: all 0.3s ease;
+    font-style: normal;
+}
+
+input::placeholder {
+    color: #ffffff;
+    opacity: 0.7;
+    font-style: italic;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #ffffff;
+    box-shadow: 0 0 10px #ffffff;
+
+    transform: scale(1.05);
+}
+
+/* Кнопка */
+button {
+    background-color: #237aa7;
+    position: absolute;
+    width: 20%;
+    height: 15%;
+    top: 220px;
+    color: #fff;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 0 2px white;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    box-shadow: 0 0 10px #ffffff;
+    border-color: #ffffff;
+    color: #ffffff;
+
+    transform: scale(1.1);
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 10px #ffffff;
+
+    transform: scale(1.1);
+}
+
+
+button:hover {
+    background-color: #237aa7;
+    border-color: #ffffff;
+    color: #ffffff;
+}

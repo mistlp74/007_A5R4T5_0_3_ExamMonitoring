@@ -3,115 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <title>Сесія {{ session_code }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='session.css') }}">
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
-    <style>
-        body { font-family: Arial; margin: 20px; }
-        #messages { border: 1px solid #ccc; height: 200px; overflow-y: scroll; padding: 10px; margin-bottom: 10px; }
-        #chat-form { display: flex; gap: 10px; margin-bottom: 20px; }
-        #videos { display: flex; flex-wrap: wrap; gap: 10px; }
-        .video-container { display: flex; flex-direction: column; align-items: center; }
-        .video-container img { width: 240px; border: 1px solid #ccc; }
-    </style>
 </head>
-<body>
-    <h2>Сесія: {{ session_code }}</h2>
-    <p>Ви увійшли як <strong>{{ role }}</strong>: {{ name }}</p>
+<body class="{{ role }}-view">
 
-    <div id="messages"></div>
+    <div id="background-image"></div>
 
-    <form id="chat-form" onsubmit="sendMessage(); return false;">
-        <select id="recipient">
-            {% for p in participants %}
-                {% if role == 'teacher' or (role == 'student' and p.role == 'teacher') %}
-                    {% if p.name != name %}
-                        <option value="{{ p.name }}">{{ p.name }} ({{ p.role }})</option>
-                    {% endif %}
-                {% endif %}
-            {% endfor %}
-        </select>
-        <input type="text" id="message" placeholder="Ваше повідомлення" required>
-        <button type="submit">Надіслати</button>
-    </form>
+    <div class="session-info">
+        <h2>session: {{ session_code }}</h2>
+        <p>You joined as <strong>{{ role }}</strong>: {{ name }}</p>
+    </div>
 
-    {% if role == 'student' %}
-        <video id="video" autoplay muted playsinline style="border: 2px solid #ccc; width: 240px; margin-bottom: 10px;"></video>
-        <canvas id="canvas" style="display:none;"></canvas>
-    {% endif %}
+    <div class="main-container">
 
-    <div id="videos"></div>
+        <div id="chat-wrapper">
+            <div id="messages">
+                <ul id="message-list"></ul>
+            </div>
 
+            <form id="chat-form" onsubmit="sendMessage(); return false;">
+                <select id="recipient">
+                    {% for p in participants %}
+                        {% if role == 'teacher' or (role == 'student' and p.role == 'teacher') %}
+                            {% if p.name != name %}
+                                <option value="{{ p.name }}">{{ p.name }} ({{ p.role }})</option>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <input type="text" id="message" placeholder="your messege" required>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+
+        {% if role == 'student' %}
+            <div id="student-video" class="student-video-wrapper">
+                <div class="video-container student-video-container">
+                    <video id="video" autoplay muted playsinline></video>
+                    <canvas id="canvas" class="hidden-canvas"></canvas>
+                </div>
+            </div>
+        {% elif role == 'teacher' %}
+            <div id="teacher-videos">
+                <div class="video-grid">
+                </div>
+                <div class="button-wrapper">
+                    <button id="load-more-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="arrow-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
     <script>
-        const socket = io();
-        const name = "{{ name }}";
-        const role = "{{ role }}";
-        const sessionCode = "{{ session_code }}";
+    const socket = io();
+    const name = "{{ name }}";
+    const role = "{{ role }}";
+    const sessionCode = "{{ session_code }}";
 
-        socket.emit('join', { name, session_code: sessionCode });
+    socket.emit('join', { name, session_code: sessionCode });
 
-        function sendMessage() {
-            const recipient = document.getElementById('recipient').value;
-            const message = document.getElementById('message').value;
-            socket.emit('send_message', {
-                session_code: sessionCode,
-                sender: name,
-                recipient: recipient,
-                message: message
-            });
-            document.getElementById('message').value = '';
-        }
+    function sendMessage() {
+        const recipient = document.getElementById('recipient').value;
+        const message = document.getElementById('message').value;
 
-        socket.on('receive_message', function(data) {
-            const container = document.getElementById('messages');
-            const p = document.createElement('p');
-            p.textContent = `${data.sender}: ${data.message}`;
-            container.appendChild(p);
+        socket.emit('send_message', {
+            session_code: sessionCode,
+            sender: name,
+            recipient: recipient,
+            message: message
         });
 
-        if (role === 'student') {
-            const video = document.getElementById('video');
-            const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
+        document.getElementById('message').value = '';
+    }
 
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(stream => {
-                    video.srcObject = stream;
-                    video.onloadedmetadata = () => {
-                        video.play();
-                        setInterval(() => {
-                            if (video.videoWidth && video.videoHeight) {
-                                canvas.width = video.videoWidth;
-                                canvas.height = video.videoHeight;
-                                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                                const imageData = canvas.toDataURL('image/jpeg', 0.5);
-                                socket.emit('video_frame', {
-                                    session_code: sessionCode,
-                                    sender: name,
-                                    frame: imageData
-                                });
-                            }
-                        }, 100);
-                    };
-                })
-                .catch(err => {
-                    console.error("Помилка доступу до камери:", err);
-                });
-        }
+    socket.on('receive_message', function(data) {
+        const messageList = document.getElementById('message-list');
+        const messagesContainer = document.getElementById('messages');
 
-        if (role === 'teacher') {
-            socket.on('receive_frame', function(data) {
-                const id = `student-${data.sender}`;
-                let container = document.getElementById(id);
-                if (!container) {
-                    container = document.createElement('div');
-                    container.className = 'video-container';
-                    container.id = id;
-                    container.innerHTML = `<strong>${data.sender}</strong><img alt="Video Frame" />`;
-                    document.getElementById('videos').appendChild(container);
-                }
-                const img = container.querySelector('img');
-                img.src = data.frame;
+        const li = document.createElement('li');
+        li.textContent = `${data.sender}: ${data.message}`;
+        messageList.appendChild(li);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    });
+
+    if (role === 'student') {
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+                video.onloadedmetadata = () => {
+                    video.play();
+                    setInterval(() => {
+                        if (video.videoWidth && video.videoHeight) {
+                            canvas.width = video.videoWidth;
+                            canvas.height = video.videoHeight;
+                            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                            const imageData = canvas.toDataURL('image/jpeg', 0.5);
+                            socket.emit('video_frame', {
+                                session_code: sessionCode,
+                                sender: name,
+                                frame: imageData
+                            });
+                        }
+                    }, 100);
+                };
+            })
+            .catch(err => {
+                console.error("Webcam access error:", err);
+            });
+    }
+
+    if (role === 'teacher') {
+        const teacherVideos = document.getElementById('teacher-videos');
+        const loadMoreBtn = document.getElementById('load-more-btn');
+
+        let isExpanded = false;
+
+        if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', () => {
+                isExpanded = !isExpanded;
+                teacherVideos.classList.toggle('expanded', isExpanded);
             });
         }
+
+            socket.on('receive_frame', function(data) {
+            const id = `student-${data.sender}`;
+            const videoGrid = teacherVideos.querySelector('.video-grid');
+            let container = document.getElementById(id);
+
+            if (!container) {
+                container = document.createElement('div');
+                container.className = 'video-container';
+                container.id = id;
+                container.innerHTML = `
+                    <strong class="video-name">${data.sender}</strong>
+                    <img alt="Video Frame" />
+                `;
+                videoGrid.appendChild(container);
+            }
+
+            const img = container.querySelector('img');
+            img.src = data.frame;
+        });
+
+    }
     </script>
+
 </body>
 </html>

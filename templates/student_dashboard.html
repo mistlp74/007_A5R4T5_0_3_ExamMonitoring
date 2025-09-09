@@ -1,15 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Учень - {{ name }}</title>
+    <title>Student - {{ name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='student_dashboard.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 </head>
 <body>
-    <h1>Ласкаво просимо, {{ name }}!</h1>
-    <h2>Щоб приєднатися до сесії, введіть код:</h2>
+    <div class="video-container">
+        <video autoplay muted loop id="bg-video">
+            <source src="{{ url_for('static', filename='Video1_fixed.mp4') }}" type="video/mp4">
+        </video>
+    </div>
     <form action="/join_session" method="post">
+        <div class="content">
+            <h2>Enter your session code to join:</h2>
+        </div>
     <input type="hidden" name="name" value="{{ name }}">
-    <input type="text" name="session_code" placeholder="Код сесії" required>
-    <button type="submit">Приєднатися до сесії</button>
+    <input type="text" name="session_code" placeholder="The Code" required>
+        <button>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
+            </svg>
+        </button>
     </form>
 </body>
 </html>
