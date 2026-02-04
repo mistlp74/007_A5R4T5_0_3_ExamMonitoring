@@ -41,7 +41,7 @@ Teachers see students’ frames in real time and receive system alerts about pot
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/ExamMonitoring.git
+    git clone https://github.com/mistlp74/007_A5R4T5_0_3_ExamMonitoring
     cd ExamMonitoring
     ```
 2. Install dependecies:
