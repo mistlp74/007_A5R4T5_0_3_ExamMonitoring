@@ -92,4 +92,4 @@ Teachers see students’ frames in real time and receive system alerts about pot
 
 ## Author
 
-Developed by [mistlp74](https://github.com/mistlp74)
+Developed by [Milis Carter](https://github.com/MilisCarter74)
